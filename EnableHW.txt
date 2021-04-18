@@ -1,0 +1,53 @@
+Enable Camera
+-------------
+sudo raspi-config
+
+Serial 0 to ttyAMA0
+-------------------
+sudo systemctl stop serial-getty@ttyAMA0.service
+sudo systemctl disable serial-getty@ttyAMA0.service
+sudo systemctl stop serial-getty@ttyS0.service
+sudo systemctl disable serial-getty@ttyS0.service
+
+vim /boot/config.txt
+dtoverlay=pi3-miniuart-bt
+
+Enable Serial
+-------------
+sudo raspi-config 
+
+Enable SPI
+-------------
+sudo raspi-config 
+
+
+Run Onboot Code
+----------------
+pi@raspberrypi:~ $ sudo chmod 0777 project/onboot.sh
+
+pi@raspberrypi:~ $ cat project/onboot.sh
+sleep 30
+sudo python3 /home/pi/project/main.py &
+pi@raspberrypi:~ $ cat /etc/rc.local
+#!/bin/sh -e
+#
+# rc.local
+#
+# This script is executed at the end of each multiuser runlevel.
+# Make sure that the script will "exit 0" on success or any other
+# value on error.
+#
+# In order to enable or disable this script just change the execution
+# bits.
+#
+# By default this script does nothing.
+
+# Print the IP address
+_IP=$(hostname -I) || true
+if [ "$_IP" ]; then
+  printf "My IP address is %s\n" "$_IP"
+fi
+
+sh /home/pi/project/onboot.sh &
+exit 0
+

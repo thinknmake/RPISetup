@@ -1,0 +1,35 @@
+# sudo apt-get update 
+# sudo apt-get install samba samba-common-bin
+# sudo apt-get install ntfs-3g
+# sudo mkdir /ShareDrive
+# sudo mkdir /ShareDrive1
+# sudo mount /dev/sda1 /ShareDrive
+# sudo mount /dev/sda2 /ShareDrive1
+
+# sudo nano /etc/samba/smb.conf
+
+[HomeNAS]
+   comment = Home NAS Server
+   public = yes
+   writeable = yes
+   browsable = yes
+   path = /ShareDrive
+   create mask = 0777
+   directory mask = 0777
+
+[HomeNAS 2]
+   comment = Home NAS Server2
+   public = yes
+   writeable = yes
+   browsable = yes
+   path = /ShareDrive1
+   create mask = 0777
+   directory mask = 0777
+
+# sudo nano /etc/fstab
+   /dev/sda1 /ShareDrive auto defaults, user 0 2
+   /dev/sda2 /ShareDrive1 auto defaults, user 0 2
+
+sudo /etc/init.d/smbd restart 
+sudo /etc/init.d/nmbd restart
+sudo /etc/init.d/samba restart

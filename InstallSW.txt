@@ -1,0 +1,22 @@
+sudo apt update
+sudo apt install vim -y
+sudo apt install python-pip -y
+sudo apt install python3-pip -y
+sudo apt install git -y
+
+sudo python -m pip install --upgrade pip setuptools wheel
+sudo pip install Adafruit_DHT
+sudo pip install adafruit-mcp3008
+sudo pip install telepot
+
+sudo apt install python-picamera python3-picamera -y
+sudo pip install pyserial
+
+sudo apt install python-smbus -y
+sudo apt install i2c-tools -y
+
+BMP280
+-------
+sudo pip3 install RPI.GPIO
+sudo pip3 install adafruit-blinka
+sudo pip3 install adafruit-circuitpython-bmp280
